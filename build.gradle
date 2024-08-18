@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'global.goit'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveFileName.set("myname.jar")
+    manifest {
+        attributes 'Main-Class': 'global.goit.Main'
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it)}
+}
